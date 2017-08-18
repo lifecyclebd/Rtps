@@ -53,6 +53,27 @@ class User_Model extends CI_Model {
         $f_district = $data['f_district'];
         $f_area = $data['area'];
 
+        if(!empty($f_category)){
+            if(empty($f_division) && empty($f_district) && empty($f_area) ){
+                $sql = "SELECT * FROM tbl_post,tbl_category,tbl_division,tbl_districts  WHERE tbl_post.district = tbl_districts.id and tbl_post.category = tbl_category.id and   tbl_post.division = tbl_division.id  AND tbl_post.category=$f_category";
+            }
+            else if(!empty($f_division) && empty($f_district) && empty($f_area) ){
+                $sql = "SELECT * FROM tbl_post,tbl_category,tbl_division,tbl_districts  WHERE tbl_post.district = tbl_districts.id and tbl_post.category = tbl_category.id and   tbl_post.division = tbl_division.id  AND tbl_post.category=$f_category and tbl_post.division=$f_division";
+            }
+            else if(!empty($f_division) && !empty($f_district) && empty($f_area) ){
+                $sql = "SELECT * FROM tbl_post,tbl_category,tbl_division,tbl_districts  WHERE tbl_post.district = tbl_districts.id and tbl_post.category = tbl_category.id and   tbl_post.division = tbl_division.id  AND tbl_post.category=$f_category and tbl_post.division=$f_division and tbl_post.district=$f_district";
+            }
+            else if(!empty($f_division) && !empty($f_district) && !empty($f_area) ){
+                $sql = "SELECT * FROM tbl_post,tbl_category,tbl_division,tbl_districts  WHERE tbl_post.district = tbl_districts.id and tbl_post.category = tbl_category.id and   tbl_post.division = tbl_division.id  AND tbl_post.category=$f_category and tbl_post.division=$f_division and tbl_post.district=$f_district and tbl_post.area like '%$f_area%'";
+            }else{
+                $sql = "SELECT * FROM tbl_post,tbl_category,tbl_division,tbl_districts  WHERE tbl_post.district = tbl_districts.id and tbl_post.category = tbl_category.id and   tbl_post.division = tbl_division.id  AND tbl_post.category=$f_category and tbl_post.area like '%$f_area%'";
+            }
+        }
+        else{
+                $sql = "SELECT * FROM tbl_post,tbl_category,tbl_division,tbl_districts  WHERE tbl_post.district = tbl_districts.id and tbl_post.category = tbl_category.id and   tbl_post.division = tbl_division.id";
+            }
+        /*
+
         if ($f_area == NULL) {
             $sql = "SELECT * FROM tbl_post,tbl_category,tbl_division,tbl_districts "
                     . " WHERE tbl_category.id = $f_category AND"
@@ -73,7 +94,7 @@ class User_Model extends CI_Model {
         }
         //$query = $this->db->get();
         //$value = $query->result();
-
+*/      
         $query = $this->db->query($sql);
         return $query->result_array();
         

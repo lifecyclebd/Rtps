@@ -205,12 +205,14 @@ class User extends CI_Controller {
         $data['category'] = $this->sa_model->select_catagory();
         $data['division'] = $this->sa_model->get_division();
         $data['district'] = $this->sa_model->get_district();
+
         $data['f_category'] = $this->input->post('category', TRUE);
         $data['f_division'] = $this->input->post('division', TRUE);
         $data['f_district'] = $this->input->post('district', TRUE);
         $data['area'] = $this->input->post('target_area', TRUE);
+
         $data['search_data'] = $this->u_model->search_home($data);
-        //$data['search_content'] = $this->load->view('search_home', $data, TRUE);
+        $data['search_content'] = $this->load->view('search_home', $data, TRUE);
 
         $data['main_content'] = $this->load->view('search_home_result', $data, TRUE);
         $data['title'] = "Find Home";

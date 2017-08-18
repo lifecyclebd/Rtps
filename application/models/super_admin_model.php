@@ -36,7 +36,7 @@ class Super_Admin_Model extends CI_Model {
         $result = $query->result();
         return $result;
     }
-    function get_division()
+    public function get_division()
     {
         $result = $this->db->get('tbl_division')->result();;
         $id = array('0');
@@ -55,7 +55,7 @@ class Super_Admin_Model extends CI_Model {
         $result = $query->result();
         return $result;
     }
-    function get_district($cid=NULL)
+    public function get_district($cid=NULL)
     {
         $result = $this->db->where('division_id', $cid)->get('tbl_districts')->result();
         $id = array('0');

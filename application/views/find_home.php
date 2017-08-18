@@ -1,23 +1,23 @@
-<div class="container">
+<div class="container-fluid">
     <div class="well text-center text-info" style="margin-top: 10px;">
         <h4>Select your preferable category,division,district and area then search your living</h4>
     </div>
     <div class="row" style="margin-top: 10px">
-        <div class="col-sm-4" style="border-radius: 15px">
-            <div class="panel panel-primary">
+        <div class="col-md-4" style="border-radius: 15px;">
+            <div class="panel panel-primary" style="position: fixed;">
                 <div class="panel-heading text-center">
                     <h4>Search prefarable Living</h4>
 
                 </div>
-                <div class="panel-body" style="width: 95%; margin-left: 9px">
+                <div class="panel-body" style="width: 95%; margin-left: 9px;">
 
                     <form action="<?php echo base_url() ?>user/search_home" method="post">
 
                         <div class="row">
                             <div class="form-group" style="margin: 0px">
                                 <div class="col-md-12" style="padding: 0px;">
-                                    <select name="category" class="form-control">
-                                        <option>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-------- Select Category --------</option>
+                                    <select name="category" class="form-control" required>
+                                        <option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-------- Select Category --------</option>
                                         <?php foreach ($category as $value) { ?>
                                             <option value="<?php echo $value->id; ?>"><?php echo $value->category_name; ?></option>
                                         <?php } ?>
@@ -61,34 +61,12 @@
             </div>
         </div>
 
-        <!-- Script start-->
 
-        <script src="<?php echo base_url(); ?>js/jquery-1.10.2.min.js" type="text/javascript"></script>
-        <script type="text/javascript">
-            $('#division').change(function () {
-                var country_id = $(this).val();
-                $("#district > option").remove();
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo site_url('Welcome/populate_district'); ?>",
-                    data: {id: country_id},
-                    dataType: 'json',
-                    success: function (data) {
-                        $.each(data, function (k, v) {
-                            var opt = $('<option />');
-                            opt.val(k);
-                            opt.text(v);
-                            $('#district').append(opt);
-                        });
-                    }
-                });
-            });
-        </script>
 
         <!-- Script End-->
-        <div class="col-sm-8">
+        <div class="col-md-8">
 
-<?php foreach ($allpost as $value) { ?>
+                <?php foreach ($allpost as $value) { ?>
                 <div class="panel panel-primary">
                     <div class="panel-heading text-center">
                         <div class="row">
@@ -99,9 +77,9 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-xs-4"><img class="img-responsive thumbnail" style="width: 100%;height: auto" src="<?php echo base_url(); ?>/images/uploads/<?php echo $value->image_1; ?>"/></div>
-                            <div class="col-xs-4"><img class="img-responsive thumbnail" style="width: 100%;height: auto" src="<?php echo base_url(); ?>/images/uploads/<?php echo $value->image_2; ?>"/></div>
-                            <div class="col-xs-4"><img class="img-responsive thumbnail" style="width: 100%;height: auto" src="<?php echo base_url(); ?>/images/uploads/<?php echo $value->image_3; ?>"/></div>
+                            <div class="col-xs-4"><img class="img-responsive thumbnail" style="width: 100%;height: 150px" src="<?php echo base_url(); ?>/images/uploads/<?php echo $value->image_1; ?>"/></div>
+                            <div class="col-xs-4"><img class="img-responsive thumbnail" style="width: 100%;height: 150px" src="<?php echo base_url(); ?>/images/uploads/<?php echo $value->image_2; ?>"/></div>
+                            <div class="col-xs-4"><img class="img-responsive thumbnail" style="width: 100%;height: 150px" src="<?php echo base_url(); ?>/images/uploads/<?php echo $value->image_3; ?>"/></div>
                         </div>
                         <div class="row">
                             <div class="col-xs-4">
@@ -125,6 +103,8 @@
 <?php } ?>
 
         </div>
+
+
         <ul class="pager">
             <li><a href="#">&leftarrow; Previous</a></li>
             <li><a href="#">Next &rightarrow;</a></li>
@@ -133,3 +113,27 @@
 
 
 </div>
+
+        <!-- Script start-->
+
+        <script src="<?php echo base_url(); ?>js/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $('#division').change(function () {
+                var country_id = $(this).val();
+                $("#district > option").remove();
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo site_url('Welcome/populate_district'); ?>",
+                    data: {id: country_id},
+                    dataType: 'json',
+                    success: function (data) {
+                        $.each(data, function (k, v) {
+                            var opt = $('<option />');
+                            opt.val(k);
+                            opt.text(v);
+                            $('#district').append(opt);
+                        });
+                    }
+                });
+            });
+        </script>

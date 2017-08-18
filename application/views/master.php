@@ -70,13 +70,8 @@
 
         <section>
             <div style="background-color:#ddd" >
-            
-
-            <!--Start body-->
-            <div class="container" style="padding-bottom:3%">
-                <?php echo $main_content; ?>
-            </div>
-            <!--End body-->
+             
+                <?php echo $main_content; ?> 
             
         </div>
         </section>
